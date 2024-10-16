@@ -1,6 +1,6 @@
 # Housing Insights
 
-In this project, we focused on providing crucial data insights to aid Ukrainian refugees seeking housing in Poland. Recognizing the immense challenges faced by refugees in finding suitable and affordable accommodation, we leveraged comprehensive data from multiple real estate websites through the Bright Data tool. This endeavor aimed to simplify and optimize the property search process for displaced individuals and families, ensuring they have access to reliable and up-to-date information about the housing market in Poland.
+In this project, I have focused on providing crucial data insights to aid Ukrainian refugees seeking housing in Poland. Recognizing the immense challenges faced by refugees in finding suitable and affordable accommodation, we leveraged comprehensive data from multiple real estate websites through the Bright Data tool. This endeavor aimed to simplify and optimize the property search process for displaced individuals and families, ensuring they have access to reliable and up-to-date information about the housing market in Poland.
 
 Our first step involved scraping extensive datasets from various real estate websites using Bright Data. This tool enabled us to compile a rich and diverse collection of property listings, encompassing different regions, types of accommodation, price ranges, and availability. By aggregating data from multiple sources, we ensured a more holistic and accurate representation of the housing market, which is essential for making informed decisions.
 
