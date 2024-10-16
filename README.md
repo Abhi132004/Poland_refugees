@@ -1,12 +1,12 @@
 # Housing Insights
 
-In this project, I have focused on providing crucial data insights to aid Ukrainian refugees seeking housing in Poland. Recognizing the immense challenges faced by refugees in finding suitable and affordable accommodation, we leveraged comprehensive data from multiple real estate websites through the Bright Data tool. This endeavor aimed to simplify and optimize the property search process for displaced individuals and families, ensuring they have access to reliable and up-to-date information about the housing market in Poland.
+In this project, I have focused on providing crucial data insights to aid Ukrainian refugees seeking housing in Poland. Recognizing the immense challenges faced by refugees in finding suitable and affordable accommodation, I leveraged comprehensive data from multiple real estate websites through the Bright Data tool. This endeavor aimed to simplify and optimize the property search process for displaced individuals and families, ensuring they have access to reliable and up-to-date information about the housing market in Poland.
 
-My first step involved scraping extensive datasets from various real estate websites using Bright Data. This tool enabled me to compile a rich and diverse collection of property listings, encompassing different regions, types of accommodation, price ranges, and availability. By aggregating data from multiple sources, we ensured a more holistic and accurate representation of the housing market, which is essential for making informed decisions.
+My first step involved scraping extensive datasets from various real estate websites using Bright Data. This tool enabled me to compile a rich and diverse collection of property listings, encompassing different regions, types of accommodation, price ranges, and availability. By aggregating data from multiple sources, I ensured a more holistic and accurate representation of the housing market, which is essential for making informed decisions.
 
-Once the data was collected, we loaded it into the Snowflake database. Snowflake's powerful cloud-based architecture allowed me to manage large volumes of data efficiently and perform complex queries with ease. The platform's scalability and performance were crucial in handling the intricate data transformations and analyses required for this project.
+Once the data was collected, I loaded it into the Snowflake database. Snowflake's powerful cloud-based architecture allowed me to manage large volumes of data efficiently and perform complex queries with ease. The platform's scalability and performance were crucial in handling the intricate data transformations and analyses required for this project.
 
-In the Snowflake database, we undertook a meticulous process of data cleaning and transformation. This involved identifying and rectifying inconsistencies, removing duplicates, and standardizing the information across various listings. Ensuring data quality was paramount to provide accurate and reliable insights to the users. We also enriched the data with additional attributes such as proximity to essential services (schools, hospitals, public transport), neighborhood safety ratings, and community amenities, which are particularly important for refugees adjusting to a new country.
+In the Snowflake database, I undertook a meticulous process of data cleaning and transformation. This involved identifying and rectifying inconsistencies, removing duplicates, and standardizing the information across various listings. Ensuring data quality was paramount to provide accurate and reliable insights to the users. I also enriched the data with additional attributes such as proximity to essential services (schools, hospitals, public transport), neighborhood safety ratings, and community amenities, which are particularly important for refugees adjusting to a new country.
 
 After preparing the data, I conducted thorough analyses to extract meaningful insights. I focused on key parameters that would be most beneficial for Ukrainian refugees, such as average rental prices, availability of different types of accommodation (apartments, houses, shared housing), and trends in various regions of Poland. This analysis helped in identifying affordable housing options, understanding market dynamics, and spotting emerging trends that could impact the availability and pricing of properties.
 
@@ -28,7 +28,7 @@ One who will allocate the resources for every computation, When you run query an
 
 ![image](terminal1.png)<br>
 
-Created STAGE to store the data files. As the data files are in csv format, we need to create the file format first, which is csv_format.<br>
+Created STAGE to store the data files. As the data files are in csv format, I need to create the file format first, which is csv_format.<br>
 ```sql
 CREATE OR REPLACE FILE FORMAT CSV_FORMAT
   type = csv
@@ -39,11 +39,11 @@ CREATE OR REPLACE FILE FORMAT CSV_FORMAT
 CREATE OR REPLACE STAGE MY_CSV_STAGE_SHORT
   file_format=csv_format;
 ```
-Once the stage is created we loaded csv file data to internal stage using PUT command which can be only be run from SNOWSQL<br>
+Once the stage is created I loaded csv file data to internal stage using PUT command which can be only be run from SNOWSQL<br>
 
 ![image](terminal2.png)<br>
 
-We slected the warehouse which was created and also the database:<br>
+I slected the warehouse which was created and also the database:<br>
 ![image](https://github.com/Pradnya1111/Otodom_Data_Analysis_Project/assets/87003134/5550083a-6749-4a40-9097-e20df9e6e638) <br>
 
 ![image](https://github.com/Pradnya1111/Otodom_Data_Analysis_Project/assets/87003134/57bd1282-cb06-417d-95d4-536cc388f845)<br>
@@ -56,22 +56,22 @@ CREATE or replace TABLE OTODOM_DATA_DUMP_SHORT
 );
 ```
 
-We Loaded data from stage to table in snowflake:
+I Loaded data from stage to table in snowflake:
 ```sql
 COPY INTO OTODOM_DATA_DUMP_SHORT
 FROM @MY_CSV_STAGE_SHORT;
 ```
 
-To verify the data we checked the count:
+To verify the data I checked the count:
 ```sql
 SELECT COUNT(1) FROM OTODOM_DATA_DUMP_SHORT; --  62816 records.
 ```
 # Flatten the data and load to a new table<br>
 
-As the data was in json format semi structured format we need to move the data in different columns.<br>
-In this step we created the new table otodom_data_short_flatten which will hold the flatten data. Also added the one identifier column called rn<br>
-We used PARSE_JSON function to parse the JSON data in this field.<br>
-As in the description there are few html tags so we used the regexp to remove that and in other we have just removed the “ and replaced it with blanks and also the caret and made datatype as string(json_data is the name) 
+As the data was in json format semi structured format I need to move the data in different columns.<br>
+In this step I created the new table otodom_data_short_flatten which will hold the flatten data. Also added the one identifier column called rn<br>
+I used PARSE_JSON function to parse the JSON data in this field.<br>
+As in the description there are few html tags so I used the regexp to remove that and in other I have just removed the “ and replaced it with blanks and also the caret and made datatype as string(json_data is the name) 
 
 ```sql
 CREATE OR REPLACE table otodom_data_short_flatten
@@ -106,15 +106,15 @@ select * from OTODOM_DATA_DUMP_SHORT limit 10;
 ```
 ![image](https://github.com/Pradnya1111/Otodom_Data_Analysis_Project/assets/87003134/e2a5e8fd-0b7f-4c0a-b4e8-331745064754)<br>
 
-After Flattening the data we got seperate columns.<br>
+After Flattening the data I got seperate columns.<br>
 ```sql
 select * from otodom_data_short_flatten limit 50;
 ```
 ![image](https://github.com/Pradnya1111/Otodom_Data_Analysis_Project/assets/87003134/523d668e-ffa8-4772-a2cb-2621a8c6e949)<br>
 
-Now we have crated the different stages to load the address table and title which is in English<br>
-Once its loaded we have copied the data into the tables.<br>
-We have loaded both files using PUT command<br>
+Now I have crated the different stages to load the address table and title which is in English<br>
+Once its loaded I have copied the data into the tables.<br>
+I have loaded both files using PUT command<br>
 ```sql
 CREATE OR REPLACE FILE FORMAT CSV_FORMAT
   type = csv
@@ -149,7 +149,7 @@ copy into otodom_data_flatten_address_full from
  @my_csv_stage;
 ```
 
-We have transformed the data to single table.<br>
+I have transformed the data to single table.<br>
 The code below creates a new table named OTODOM_DATA_TRANSFORMED through data transformation. It processes existing property data, converts prices and surface areas, extracts address elements, and translates titles. Additionally, it determines property types based on conditions like price and surface. Finally, it generates an apartment_flag column that categorizes properties.
 ```sql
 CREATE OR REPLACE TABLE OTODOM_DATA_TRANSFORMED
